@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jhipster:war">
+    <output-path>$PROJECT_DIR$/jhipster-gateway/target</output-path>
+    <root id="archive" name="jhipster-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="jhipster:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jhipster-authserver/hubs-authserver.iml" filepath="$PROJECT_DIR$/jhipster-authserver/hubs-authserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jhipster-gateway/jhipster.iml" filepath="$PROJECT_DIR$/jhipster-gateway/jhipster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jhipster-gateway/jhipster.iml" filepath="$PROJECT_DIR$/jhipster-gateway/jhipster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jhipster-authserver/jhipster-authserver.iml" filepath="$PROJECT_DIR$/jhipster-authserver/jhipster-authserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jhipster-cloud.iml" filepath="$PROJECT_DIR$/jhipster-cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jhipster-registry/jhipster-registry.iml" filepath="$PROJECT_DIR$/jhipster-registry/jhipster-registry.iml" />
+    </modules>
+  </component>
+</project>
