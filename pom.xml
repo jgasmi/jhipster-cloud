@@ -13,6 +13,7 @@
     <modules>
         <module>jhipster-registry</module>
         <module>jhipster-gateway</module>
+        <module>jhipster-authserver</module>
     </modules>
 
     <parent>
