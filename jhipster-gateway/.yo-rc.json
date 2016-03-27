@@ -5,7 +5,7 @@
     "packageName": "io.github.jhipster.gateway",
     "packageFolder": "io/github/jhipster/gateway",
     "serverPort": "8080",
-    "authenticationType": "jwt",
+    "authenticationType": "oauth2",
     "hibernateCache": "hazelcast",
     "clusteredHttpSession": "hazelcast",
     "websocket": "spring-websocket",
@@ -14,7 +14,6 @@
     "prodDatabaseType": "postgresql",
     "searchEngine": "no",
     "buildTool": "maven",
-    "jwtSecretKey": "d1e262246e7097211381ed2087f6a7f6999cf835",
     "useSass": false,
     "applicationType": "gateway",
     "testFrameworks": [
