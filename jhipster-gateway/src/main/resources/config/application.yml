@@ -21,7 +21,10 @@ ribbon:
         enabled: true
 
 zuul:
-
+  routes:
+    user:
+      path: /user/**
+      url: http://localhost:9999/uaa/user
 
 spring:
     application:
@@ -38,6 +41,18 @@ spring:
             enabled: false
     thymeleaf:
         mode: XHTML
+    oauth2:
+        sso:
+            home:
+                secure: false
+                path: /,/**/*.html
+        client:
+            accessTokenUri: http://localhost:9999/uaa/oauth/token
+            userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+            clientId: jhipsterapp
+            clientSecret: mySecretOAuthSecret
+        resource:
+            userInfoUri: http://localhost:9999/uaa/user
 
 security:
     basic:

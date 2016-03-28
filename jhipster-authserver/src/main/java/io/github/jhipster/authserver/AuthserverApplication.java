@@ -146,10 +146,8 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         }
 
         @Override
-        public void configure(AuthorizationServerSecurityConfigurer oauthServer)
-                throws Exception {
-            oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-                    "isAuthenticated()");
+        public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+            oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
         }
 
     }
