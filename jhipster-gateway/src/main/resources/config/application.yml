@@ -21,10 +21,13 @@ ribbon:
         enabled: true
 
 zuul:
-  routes:
-    user:
-      path: /user/**
-      url: http://localhost:9999/uaa/user
+    routes:
+        resource:
+            path: /resource/**
+            url: http://localhost:9000
+        user:
+            path: /user/**
+            url: http://localhost:9999/uaa/user
 
 spring:
     application:
@@ -41,6 +44,12 @@ spring:
             enabled: false
     thymeleaf:
         mode: XHTML
+
+security:
+    basic:
+        enabled: false
+    user:
+        password: password
     oauth2:
         sso:
             home:
@@ -49,14 +58,10 @@ spring:
         client:
             accessTokenUri: http://localhost:9999/uaa/oauth/token
             userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
-            clientId: jhipsterapp
-            clientSecret: mySecretOAuthSecret
+            clientId: acme
+            clientSecret: acmesecret
         resource:
             userInfoUri: http://localhost:9999/uaa/user
-
-security:
-    basic:
-        enabled: false
 
 # ===================================================================
 # JHipster specific properties
@@ -79,8 +84,8 @@ jhipster:
     security:
         authentication:
             oauth:
-                clientid: jhipsterapp
-                secret: mySecretOAuthSecret
+                clientid: acme
+                secret: acmesecret
                 # Token is valid 30 minutes
                 tokenValidityInSeconds: 1800
     swagger:

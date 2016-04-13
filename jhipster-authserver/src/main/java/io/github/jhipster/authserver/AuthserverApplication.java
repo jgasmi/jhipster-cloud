@@ -1,12 +1,12 @@
 package io.github.jhipster.authserver;
 
-import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,20 +19,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.ApplicationContextException;
 
-import javax.sql.DataSource;
+import java.security.KeyPair;
 import java.security.Principal;
 import java.util.Collection;
 
@@ -90,59 +86,29 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         }
     }
 
-    @Bean(destroyMethod = "close")
-    @ConfigurationProperties(prefix = "spring.datasource.hikari")
-    public DataSource dataSource(DataSourceProperties dataSourceProperties) {
-        if (dataSourceProperties.getUrl() == null) {
-            throw new ApplicationContextException("Database connection pool is not configured correctly");
-        }
-        HikariDataSource hikariDataSource =  (HikariDataSource) DataSourceBuilder
-                .create(dataSourceProperties.getClassLoader())
-                .type(HikariDataSource.class)
-                .driverClassName(dataSourceProperties.getDriverClassName())
-                .url(dataSourceProperties.getUrl())
-                .username(dataSourceProperties.getUsername())
-                .password(dataSourceProperties.getPassword())
-                .build();
-
-        return hikariDataSource;
-    }
-
     @Configuration
     @EnableAuthorizationServer
     protected static class OAuth2AuthorizationConfig extends
             AuthorizationServerConfigurerAdapter {
 
         @Autowired
-        private DataSource dataSource;
-
-        @Autowired
         private AuthenticationManager authenticationManager;
 
         @Bean
-        public TokenStore tokenStore() {
-            return new JdbcTokenStore(dataSource);
-        }
-
-
-        @Override
-        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            clients.inMemory()
-                    .withClient("jhipsterapp")
-                    .secret("mySecretOAuthSecret")
-                    .authorizedGrantTypes("authorization_code", "refresh_token",
-                            "password")
-                    .scopes("openid")
-                    .autoApprove("openid");
+        public JwtAccessTokenConverter jwtAccessTokenConverter() {
+            JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+            KeyPair keyPair = new KeyStoreKeyFactory(
+                    new ClassPathResource("keystore.jks"), "foobar".toCharArray())
+                    .getKeyPair("test");
+            converter.setKeyPair(keyPair);
+            return converter;
         }
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints)
                 throws Exception {
-            endpoints
-                    .tokenStore(tokenStore())
-                    .authenticationManager(authenticationManager);
-
+            endpoints.authenticationManager(authenticationManager).accessTokenConverter(
+                    jwtAccessTokenConverter());
         }
 
         @Override

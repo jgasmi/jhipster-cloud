@@ -3,9 +3,9 @@
 
     angular
         .module('jhipsterApp', [
-            'ngStorage', 
+            'ngStorage',
             'tmh.dynamicLocale',
-            'pascalprecht.translate', 
+            'pascalprecht.translate',
             'ngResource',
             'ngCookies',
             'ngAria',
@@ -20,9 +20,10 @@
         ])
         .run(run);
 
-    run.$inject = ['stateHandler', 'translationHandler'];
+    run.$inject = ['stateHandler', 'translationHandler', 'Principal'];
 
-    function run(stateHandler, translationHandler) {
+    function run(stateHandler, translationHandler, Principal) {
+        Principal.getUser();
         stateHandler.initialize();
         translationHandler.initialize();
     }

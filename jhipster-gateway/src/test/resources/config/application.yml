@@ -75,8 +75,8 @@ jhipster:
     security:
         authentication:
             oauth:
-                clientid: jhipsterapp
-                secret: mySecretOAuthSecret
+                clientid: acme
+                secret: acmesecret
                 # Token is valid 30 minutes
                 tokenValidityInSeconds: 1800
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

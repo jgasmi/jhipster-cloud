@@ -216,7 +216,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/jhipster-gateway/target/MANIFEST.MF" />
+        <element id="file-copy" path="C:\Users\lyance-dev-01\IdeaProjects\jhipster-cloud\jhipster-gateway\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="jhipster/web/Web" />
     </root>

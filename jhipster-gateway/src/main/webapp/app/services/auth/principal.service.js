@@ -5,9 +5,9 @@
         .module('jhipsterApp')
         .factory('Principal', Principal);
 
-    Principal.$inject = ['$q', 'Account', 'JhiTrackerService'];
+    Principal.$inject = ['$q', 'Account', 'JhiTrackerService', 'SsoService'];
 
-    function Principal ($q, Account, JhiTrackerService) {
+    function Principal ($q, Account, JhiTrackerService, SsoService) {
         var _identity,
             _authenticated = false;
 
@@ -16,6 +16,7 @@
             hasAnyAuthority: hasAnyAuthority,
             hasAuthority: hasAuthority,
             identity: identity,
+            getUser: getUser,
             isAuthenticated: isAuthenticated,
             isIdentityResolved: isIdentityResolved
         };
@@ -95,6 +96,22 @@
 
         function isIdentityResolved () {
             return angular.isDefined(_identity);
+        }
+
+        function getUser(){
+            SsoService.get().$promise
+                .then(getUserThen)
+                .catch(getUserCatch);
+
+            function getUserThen (account) {
+                _identity = account.data;
+                _authenticated = true;
+            }
+
+            function getUserCatch () {
+                _identity = null;
+                _authenticated = false;
+            }
         }
     }
 })();

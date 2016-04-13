@@ -28,8 +28,8 @@
         <module name="jhipster-registry" />
       </profile>
       <profile default="false" name="Annotation profile for jhipster" enabled="true">
-        <sourceOutputDir name="target/generated-sources" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <sourceOutputDir name="target\generated-sources" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processor name="org.mapstruct.ap.MappingProcessor" />
         <processorPath useClasspath="true" />
